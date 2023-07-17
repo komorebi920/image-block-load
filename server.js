@@ -14,7 +14,7 @@ const router = new koaRouter();
 app.use(koaCors());
 
 // 指定了静态文件的根目录
-app.use(koaStatic(__dirname + "/public"));
+app.use(koaStatic(`${__dirname}/public`));
 
 // 使用 koa-body 中间件来处理文件上传
 app.use(koaBody());
@@ -37,11 +37,15 @@ router.post("/getImageInfo", async (ctx) => {
 // 获取图片块
 router.post("/getImageChunk", async (ctx) => {
   try {
+    const { left, top, width, height } = ctx.request.body;
     const imagePath = `${__dirname}/public/neom-qGH25zv5xMk-unsplash.jpg`;
     const imageBuffer = fs.readFileSync(imagePath);
     const imageContentType = mine.getType(imagePath);
+    const imageChunk = await sharp(imageBuffer)
+      .extract({ left, top, width, height })
+      .toBuffer();
     ctx.type = imageContentType;
-    ctx.response.body = imageBuffer;
+    ctx.response.body = imageChunk;
   } catch (error) {
     console.error("提取图片失败:", error);
     ctx.status = 500; // 服务器错误
