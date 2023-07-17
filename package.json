@@ -1,16 +1,26 @@
 {
   "name": "image-chunk-loader",
-  "version": "0.1.0",
   "private": true,
   "description": "图片分割与分块加载",
+  "main": "server.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "start": "node server.js"
   },
+  "repository": "git@github.com:komorebi920/koa-file-upload.git",
+  "author": "komorebi920 <yxc900920@163.com>",
   "dependencies": {
+    "axios": "^1.4.0",
     "core-js": "^3.6.5",
+    "koa": "^2.14.2",
+    "koa-body": "^6.0.1",
+    "koa-router": "^12.0.0",
+    "koa-static": "^5.0.0",
+    "koa2-cors": "^2.0.6",
+    "mime": "^3.0.0",
+    "sharp": "^0.32.3",
     "vue": "^2.6.11"
   },
   "devDependencies": {
@@ -36,5 +46,6 @@
       "vue-cli-service lint",
       "git add"
     ]
-  }
+  },
+  "license": "MIT"
 }
