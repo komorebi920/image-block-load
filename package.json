@@ -1,5 +1,5 @@
 {
-  "name": "image-chunk-loader",
+  "name": "image-block-load",
   "private": true,
   "description": "图片分割与分块加载",
   "main": "server.js",
@@ -9,7 +9,7 @@
     "lint": "vue-cli-service lint",
     "start": "node server.js"
   },
-  "repository": "git@github.com:komorebi920/koa-file-upload.git",
+  "repository": "git@github.com:komorebi920/image-block-load.git",
   "author": "komorebi920 <yxc900920@163.com>",
   "dependencies": {
     "axios": "^1.4.0",

@@ -1,6 +1,6 @@
-# image-chunk-loader
+# image-block-load
 
-图片分割与分块加载
+koa + vue 实现图片分块加载
 
 ## Browsers support
 
