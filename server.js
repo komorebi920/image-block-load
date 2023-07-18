@@ -19,14 +19,14 @@ app.use(koaStatic(`${__dirname}/public`));
 // 使用 koa-body 中间件来处理文件上传
 app.use(koaBody());
 
-// 获取图片信息
-router.post("/getImageInfo", async (ctx) => {
+// 获取图片尺寸
+router.post("/getImageSize", async (ctx) => {
   try {
     const imagePath = `${__dirname}/public/neom-qGH25zv5xMk-unsplash.jpg`;
     const imageBuffer = fs.readFileSync(imagePath);
     const imageInfo = await sharp(imageBuffer).metadata(); // 使用 sharp 获取图片尺寸
-    const { size, width, height } = imageInfo;
-    ctx.body = { code: 0, message: "成功", data: { size, width, height } };
+    const { width, height } = imageInfo;
+    ctx.body = { code: 0, message: "成功", data: { width, height } };
   } catch (error) {
     console.error("读取图片失败:", error);
     ctx.status = 500; // 服务器错误
@@ -35,17 +35,17 @@ router.post("/getImageInfo", async (ctx) => {
 });
 
 // 获取图片块
-router.post("/getImageChunk", async (ctx) => {
+router.post("/getImageBlock", async (ctx) => {
   try {
     const { left, top, width, height } = ctx.request.body;
     const imagePath = `${__dirname}/public/neom-qGH25zv5xMk-unsplash.jpg`;
     const imageBuffer = fs.readFileSync(imagePath);
     const imageContentType = mine.getType(imagePath);
-    const imageChunk = await sharp(imageBuffer)
+    const imageBlockBuffer = await sharp(imageBuffer)
       .extract({ left, top, width, height })
       .toBuffer();
     ctx.type = imageContentType;
-    ctx.response.body = imageChunk;
+    ctx.response.body = imageBlockBuffer;
   } catch (error) {
     console.error("提取图片失败:", error);
     ctx.status = 500; // 服务器错误
